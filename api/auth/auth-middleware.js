@@ -28,10 +28,14 @@ const checkUsernameTaken = async (req, res, next) => {
 }
 
 const validateInput = (req, res, next) => {
-    if(!req.body.username || !req.body.password){
+    if(!req.body.username || req.body.username.trim() === '' || req.body.username.length > 255){
         res.status(401).json({ message: 'username and password required'})
         return
     }
+    if(!req.body.password || req.body.password.trim() === '' || req.body.password.length > 255){
+      res.status(401).json({ message: 'username and password required'})
+      return
+  }
     next()
 }
 
